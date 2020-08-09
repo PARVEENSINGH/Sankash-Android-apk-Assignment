@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackground"
+    android:paddingLeft="20dp"
+    tools:context=".activities.AddProfile1">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/AppcompatTextViewQuestion"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/have_a_pet"
+            android:layout_marginTop="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/AppcompatTextViewYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yes"
+            android:layout_marginTop="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/AppCompatRadioButtonyes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/AppcompatTextViewNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no"
+            android:layout_marginTop="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/AppCompatRadioButtonno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Personal Information</string>
+    <string name="Add_Profile_1">Profile form 1</string>
+    <string name="Add_Profile_2">Profile form 2</string>
+    <string name="nick_name">Nickname</string>
+    <string name="dob">Birthdate</string>
+    <string name="hobbies">Hobbies</string>
+    <string name="interest">Interest</string>
+    <string name="save">Save</string>
+    <string name="about">About</string>
+    <string name="have_a_pet">Have a Pet</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="ques_head">Do you ?</string>
+    <string name="Add_more">add more ?</string>
+    <string name="add_ques">Add Question</string>
+</resources>
