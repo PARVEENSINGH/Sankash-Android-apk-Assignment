@@ -1,40 +1,34 @@
 package com.example.test.activities;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.example.test.DoinBackGround;
 import com.allyants.chipview.ChipView;
 import com.allyants.chipview.SimpleChipAdapter;
 import com.example.test.R;
-import com.example.test.adapter.AddQuestionAdapter;
-import com.example.test.doalog.DialogtoAddQues;
+import com.example.test.adapter.AddExperienceAdapter;
+import com.example.test.data.Experience;
+import com.example.test.dialog.DialogtoAddExperience;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class AddProfile2 extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,42 +42,42 @@ public class AddProfile2 extends AppCompatActivity implements View.OnClickListen
     private TextInputLayout textInputLayoutAbout;
     private TextInputEditText textInputEditTextAbout;
 
-    private TextInputLayout textInputLayoutDOB;
-    private TextInputEditText textInputEditTextDOB;
-
-    private TextInputLayout textInputLayoutHobbies;
-    private TextInputEditText textInputEditTextHobbies;
-
-    private AppCompatSpinner spinner;
+    private AppCompatSpinner spinner_skills;
 
     private TextInputLayout textInputLayoutInterest;
     private TextInputEditText textInputEditTextInterest;
 
-    private RecyclerView recyclerView;
-    private AppCompatTextView textViewAddmoreques;
+    private RecyclerView exprecycler_view;
+    private AppCompatTextView textViewAddExperience;
 
-    private AddQuestionAdapter addQuestionAdapter;
+    private TextInputLayout textInputLayoutSkills;
+    private TextInputEditText textInputEditTextSkills;
+
+    private  TextInputLayout textInputLayoutContact;
+    private TextInputEditText textInputEditTextContact;
+
+    private AppCompatSpinner spinner_education;
+    private  AppCompatSpinner spinner_interest;
+
+    private AddExperienceAdapter addExperienceAdapter;
 
     private AppCompatButton appCompatButtonSave;
-    private AppCompatImageView appCompatCalendar;
 
     private LinearLayoutManager linearLayoutManager;
     private ChipView mChipView;
     private ChipGroup chipGroup;
-    private AppCompatSpinner hobbies_list;
     private AppCompatSpinner interests_list;
 
     ArrayList tags = new ArrayList();
-    public List<String> queslist = new ArrayList<>();
+    public List<Experience> explist = new ArrayList<>();
     private  List<String> chipgplist = new ArrayList<>();
     private  Chip lChip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_profile1);
+        setContentView(R.layout.add_profile2);
 
-        queslist.add("have a pet");
         initViews();
         implementRecyclerView();
         implementSpinner();
@@ -133,32 +127,33 @@ public class AddProfile2 extends AppCompatActivity implements View.OnClickListen
 
         textInputLayoutNickName = (TextInputLayout) findViewById(R.id.textInputLayoutNickName);
         textInputLayoutAbout = (TextInputLayout) findViewById(R.id.textInputLayoutAbout);
-        textInputLayoutDOB = (TextInputLayout) findViewById(R.id.textInputLayoutDOB);
-        textInputLayoutHobbies=(TextInputLayout) findViewById(R.id.textInputLayoutHobbies);
         textInputLayoutInterest=(TextInputLayout) findViewById(R.id.textInputLayoutInterest);
+        textInputLayoutSkills=(TextInputLayout) findViewById(R.id.textInputLayoutSkills);
+        textInputLayoutContact=(TextInputLayout)findViewById(R.id.textInputLayoutContact);
 
         textInputEditTextNickName = (TextInputEditText) findViewById(R.id.textInputEditTextNickName);
         textInputEditTextAbout = (TextInputEditText) findViewById(R.id.textInputEditTextAbout);
-        textInputEditTextDOB = (TextInputEditText) findViewById(R.id.textInputEditTextDOB);
-        textInputEditTextHobbies = (TextInputEditText) findViewById(R.id.textInputEditTextHobies);
-        textInputEditTextInterest = (TextInputEditText) findViewById(R.id.textInputEditTextInterest);
+        textInputEditTextInterest = (TextInputEditText) findViewById(R.id.textInputEditTextinterest);
+        textInputEditTextContact= (TextInputEditText) findViewById(R.id.textInputEditTextContact);
+        textInputEditTextSkills = (TextInputEditText) findViewById(R.id.textInputEditTextSkills);
 
-        spinner= (AppCompatSpinner) findViewById(R.id.spinner_relationship_status);
-        appCompatButtonSave = (AppCompatButton) findViewById(R.id.appCompatButtonSave);
-        recyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
-        textViewAddmoreques = (AppCompatTextView) findViewById(R.id.textViewAddmoreques);
-        appCompatCalendar = (AppCompatImageView)findViewById(R.id.AppCompatCalendar);
+        spinner_skills= (AppCompatSpinner) findViewById(R.id.spinner_skills);
+        spinner_education=(AppCompatSpinner) findViewById(R.id.spinner_education);
+        spinner_interest=(AppCompatSpinner) findViewById(R.id.spinner_interest);
+
+        exprecycler_view = (RecyclerView)findViewById(R.id.exp_recycler_view);
+        textViewAddExperience = (AppCompatTextView) findViewById(R.id.textViewExperience);
+
         mChipView = (ChipView)findViewById(R.id.cvTag);
         chipGroup = (ChipGroup)findViewById(R.id.chipGroup);
-        hobbies_list = (AppCompatSpinner) findViewById(R.id.hobbies_list);
-        interests_list = (AppCompatSpinner)findViewById(R.id.interests_list);
+
+        appCompatButtonSave = (AppCompatButton) findViewById(R.id.appCompatButtonSave);
     }
 
     private void initListeners() {
 
         appCompatButtonSave.setOnClickListener(this);
-        textViewAddmoreques.setOnClickListener(this);
-        appCompatCalendar.setOnClickListener(this);
+        textViewAddExperience.setOnClickListener(this);
     }
 
 
@@ -169,54 +164,46 @@ public class AddProfile2 extends AppCompatActivity implements View.OnClickListen
 
             case R.id.appCompatButtonSave:
                 emptyInputEditText();
+                createGson();
                 break;
-            case R.id.textViewAddmoreques:
+            case R.id.textViewExperience:
                 generateList();
-                break;
-            case R.id.AppCompatCalendar:
-                DisplayCalendar();
                 break;
         }
     }
 
-    private void DisplayCalendar() {
+    private void createGson() {
 
-        final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        Calendar newCalendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        String source = "{\"almonoid\":\"android\", \"deve\": 393232}";
 
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                textInputEditTextDOB.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-
+        Gson gson = new Gson();
+        String json = gson.toJson(source);
+        Toast.makeText(getApplicationContext(),json,Toast.LENGTH_SHORT).show();
     }
 
     private void generateList() {
 
-        DialogtoAddQues dialogtoAddQues=new DialogtoAddQues(this,queslist);
-        dialogtoAddQues.Dialog_toAddQues();
-        addQuestionAdapter.notifyDataSetChanged();
+        DialogtoAddExperience dialogtoAddExperience=new DialogtoAddExperience(this,explist);
+        dialogtoAddExperience.Dialog_toAddQues();
+        addExperienceAdapter.notifyDataSetChanged();
+        implementRecyclerView();
     }
 
     public void implementRecyclerView() {
 
-        recyclerView.setHasFixedSize(true);
+        exprecycler_view.setHasFixedSize(true);
         linearLayoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        addQuestionAdapter = new AddQuestionAdapter(queslist);
-        recyclerView.setAdapter(addQuestionAdapter);
+        exprecycler_view.setLayoutManager(linearLayoutManager);
+        addExperienceAdapter = new AddExperienceAdapter(explist);
+        exprecycler_view.setAdapter(addExperienceAdapter);
     }
 
     private void emptyInputEditText() {
+
         textInputEditTextNickName.setText(null);
         textInputEditTextAbout.setText(null);
-        textInputEditTextDOB.setText(null);
-        textInputEditTextHobbies.setText(null);
+        textInputEditTextSkills.setText(null);
+        textInputEditTextContact.setText(null);
         textInputEditTextInterest.setText(null);
     }
 
@@ -229,27 +216,27 @@ public class AddProfile2 extends AppCompatActivity implements View.OnClickListen
 
     private void implementRelationSpinner() {
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, createRelationList());
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, createEducationList());
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
+        spinner_education.setAdapter(arrayAdapter);
     }
 
     private void implementhobbieslist() {
 
         final StringBuilder stringBuilder= new StringBuilder();
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, createHobbiesList());
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, createSkillList());
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        hobbies_list.setAdapter(arrayAdapter);
+        spinner_skills.setAdapter(arrayAdapter);
 
-        hobbies_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_skills.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0)
                     stringBuilder.append(parent.getItemAtPosition(position).toString());
                 else
                     stringBuilder.append(parent.getItemAtPosition(position).toString() +", ");
-                textInputEditTextHobbies.setText(stringBuilder);
+                textInputEditTextSkills.setText(stringBuilder);
             }
 
             @Override
@@ -259,22 +246,22 @@ public class AddProfile2 extends AppCompatActivity implements View.OnClickListen
         });
     }
 
-    private List<String> createHobbiesList() {
+    private List<String> createSkillList() {
 
-        List<String> Hobbies=new ArrayList<>();
-        Hobbies.add("");
-        Hobbies.add("Writing");
-        Hobbies.add("Photography");
-        Hobbies.add("Gardening");
-        Hobbies.add("Knitting");
-        Hobbies.add("Cooking");
-        Hobbies.add("Sewing");
-        Hobbies.add("Drawing");
-        Hobbies.add("Painting");
-        Hobbies.add("Chess");
-        Hobbies.add("Camping");
+        List<String> Skills=new ArrayList<>();
+        Skills.add("");
+        Skills.add("Java");
+        Skills.add("Android");
+        Skills.add("C++");
+        Skills.add("Kotlin");
+        Skills.add("PWA");
+        Skills.add("Flutter");
+        Skills.add("Native app");
+        Skills.add("retrofit");
+        Skills.add("Linux");
+        Skills.add("VAPT");
 
-        return Hobbies;
+        return Skills;
     }
 
     private void implementinterestslist() {
@@ -283,9 +270,9 @@ public class AddProfile2 extends AppCompatActivity implements View.OnClickListen
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, createInterestList());
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        interests_list.setAdapter(arrayAdapter);
+        spinner_interest.setAdapter(arrayAdapter);
 
-        interests_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_interest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0)
@@ -321,17 +308,22 @@ public class AddProfile2 extends AppCompatActivity implements View.OnClickListen
         return Interest;
     }
 
-    private List<String> createRelationList() {
+    private List<String> createEducationList() {
 
-        List<String> relationship_status=new ArrayList<>();
-        relationship_status.add("Relationship Status");
-        relationship_status.add("Married");
-        relationship_status.add("Single");
-        relationship_status.add("UnMarried");
-        relationship_status.add("Divorced");
-        relationship_status.add("Widowed");
+        List<String> education_list=new ArrayList<>();
+        education_list.add("Education");
+        education_list.add("10th");
+        education_list.add("12th");
+        education_list.add("BA");
+        education_list.add("B.Tech (CSE)");
+        education_list.add("B.Com");
+        education_list.add("B.Tech (ECE)");
+        education_list.add("Bsc");
+        education_list.add("M.Com");
+        education_list.add("M.Tech (ECE)");
+        education_list.add("Phd");
 
-        return relationship_status;
+        return education_list;
     }
 
     private void populateTags(){

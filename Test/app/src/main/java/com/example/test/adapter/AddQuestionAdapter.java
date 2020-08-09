@@ -24,12 +24,6 @@ public class AddQuestionAdapter extends RecyclerView.Adapter<AddQuestionAdapter.
       this.queslist = queslist;
     }
 
-//    public void addItem(String subject, AddQuestionAdapter addQuestionAdapter) {
-//        Log.d(TAG,"data="+subject);
-//        queslist.add(subject);
-//        //addQuestionAdapter.notifyItemInserted(queslist.size()-1);
-//    }
-
     @NonNull
     @Override
     public AddQuestionAdapter.QuestionViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,7 +37,7 @@ public class AddQuestionAdapter extends RecyclerView.Adapter<AddQuestionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AddQuestionAdapter.QuestionViewholder holder, int position) {
-        Log.d(TAG,"item="+queslist.get(position)+" size= "+queslist.size()+"position="+position);
+
                 holder.appCompatTextViewques.setText(queslist.get(position));
                 holder.appCompatTextViewyes.setText("yes");
                 holder.appCompatRadioButtonyes.setChecked(false);

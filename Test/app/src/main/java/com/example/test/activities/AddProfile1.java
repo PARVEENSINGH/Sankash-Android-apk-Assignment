@@ -2,7 +2,6 @@ package com.example.test.activities;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,17 +23,19 @@ import com.allyants.chipview.ChipView;
 import com.allyants.chipview.SimpleChipAdapter;
 import com.example.test.R;
 import com.example.test.adapter.AddQuestionAdapter;
-import com.example.test.doalog.DialogtoAddQues;
+import com.example.test.dialog.DialogtoAddQues;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
 
 public class AddProfile1 extends AppCompatActivity implements View.OnClickListener {
 
@@ -168,6 +169,7 @@ public class AddProfile1 extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()) {
 
             case R.id.appCompatButtonSave:
+                createGson();
                 emptyInputEditText();
                 break;
             case R.id.textViewAddmoreques:
@@ -177,6 +179,15 @@ public class AddProfile1 extends AppCompatActivity implements View.OnClickListen
                 DisplayCalendar();
                 break;
         }
+    }
+
+    private void createGson() {
+
+        String source = "{\"almonoid\":\"android\", \"deve\": 393232}";
+
+        Gson gson = new Gson();
+        String json = gson.toJson(source);
+        Toast.makeText(getApplicationContext(),json,Toast.LENGTH_SHORT).show();
     }
 
     private void DisplayCalendar() {
@@ -191,9 +202,8 @@ public class AddProfile1 extends AppCompatActivity implements View.OnClickListen
                 textInputEditTextDOB.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        },1980, 11,23);
         datePickerDialog.show();
-
     }
 
     private void generateList() {
@@ -343,6 +353,7 @@ public class AddProfile1 extends AppCompatActivity implements View.OnClickListen
 
     @NonNull
     public List<String> getCheckedChipIds() {
+
         ArrayList<String> checkedIds = new ArrayList<>();
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             View child = chipGroup.getChildAt(i);
@@ -351,7 +362,6 @@ public class AddProfile1 extends AppCompatActivity implements View.OnClickListen
                     checkedIds.add(((Chip) child).getText().toString());
             }
         }
-
         return checkedIds;
     }
 

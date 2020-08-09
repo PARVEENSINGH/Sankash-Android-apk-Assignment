@@ -19,7 +19,7 @@
             android:id="@+id/prof_icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/prof_icon"/>
+            android:src="@drawable/almonoid_logo"/>
 
         <Button
             android:id="@+id/add_prof1"

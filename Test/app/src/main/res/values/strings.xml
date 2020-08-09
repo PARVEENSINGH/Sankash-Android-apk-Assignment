@@ -14,4 +14,13 @@
     <string name="ques_head">Do you ?</string>
     <string name="Add_more">add more ?</string>
     <string name="add_ques">Add Question</string>
+    <string name="countrycode">(+91)</string>
+    <string name="skills">skills</string>
+    <string name="Contact">Contact no</string>
+    <string name="Add_Experience">Add Experience</string>
+    <string name="job">Job</string>
+    <string name="title">Title</string>
+    <string name="from">Start Date</string>
+    <string name="to">End Date</string>
+    <string name="city">Place</string>
 </resources>
